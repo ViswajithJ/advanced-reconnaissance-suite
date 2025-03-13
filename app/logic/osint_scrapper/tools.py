@@ -2,6 +2,7 @@ import requests
 import socket
 import whois
 import ssl
+import datetime
 
 
 def get_server_status(domain):
@@ -90,8 +91,8 @@ def get_whois(domain):
     # ) use just these data from the returned json, at frontend
     whois_dict = {
         "Domain Registrar": whois_data.registrar,
-        "Creation Date": whois_data.creation_date,
-        "Expiration Date": whois_data.expiration_date,
+        "Creation Date": whois_data.creation_date.strftime("%Y-%m-%d %H:%M:%S %Z"),
+        "Expiration Date": whois_data.expiration_date.strftime("%Y-%m-%d %H:%M:%S %Z"),
         "Name Servers": whois_data.name_servers,
         "Emails": whois_data.emails,
         "Address": [whois_data.address, whois_data.city, whois_data.country],
@@ -124,7 +125,10 @@ def get_headers(domain):
     for i in headers:
         headers_dict[i] = headers[i]
     return headers_dict
+
+
 # error here
+
 
 def get_ssl_certificate_info(host, port=443):
     try:
@@ -147,7 +151,12 @@ def get_ssl_certificate_info(host, port=443):
 			"Expiry Date": "N/A",
 		"""
         )
-    return cert
+    ssl_cert_dict = {}
+    ssl_cert_dict["Issuer"] = dict(x[0] for x in cert.get("issuer"))
+
+    ssl_cert_dict["Subject"] = dict(x[0] for x in cert.get("subject"))
+    ssl_cert_dict["Expiry Date"] = cert.get("notAfter")
+    return ssl_cert_dict
 
 
 def get_firewall_info(domain):
