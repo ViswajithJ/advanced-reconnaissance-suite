@@ -8,10 +8,27 @@
 </head>
 
 <body>
-	<h1>test osint input</h1>
+	<h1>OSINT</h1>
 	<form action="/osint_scrapper/input" method="POST">
 		<label for="domain_name">Domain Name: </label>
-		<input type="text" name="domain_name">
+		<input type="text" name="domain_name" required>
+		<h3>Options</h3><br><br>
+		<input type="checkbox" id="serverstatus" name="option" value="Server Status">
+		<label for="serverstatus">Server Status</label><br>
+		<input type="checkbox" id="ip" name="option" value="IP">
+		<label for="ip">IP</label><br>
+		<input type="checkbox" id="serverlocation" name="option" value="Server Location">
+		<label for="serverlocation">Server Location</label><br>
+		<input type="checkbox" id="dnsinfo" name="option" value="Domain Registration Info">
+		<label for="dnsinfo">Domain Registration Details </label><br>
+		<input type="checkbox" id="cookies" name="option" value="Cookies">
+		<label for="cookies"> Cookies </label><br>
+		<input type="checkbox" id="httpheaders" name="option" value="HTTP Headers">
+		<label for="httpheaders">HTTP Headers</label><br>
+		<input type="checkbox" id="sslcert" name="option" value="SSL Certificate Info">
+		<label for="sslcert"> SSL Certificate Info</label><br>
+		<input type="checkbox" id="firewallstatus" name="option" value="Firewall Status">
+		<label for="firewallstatus"> Firewall Status</label><br><br>
 		<input type="submit" name="Submit" value="Submit">
 	</form>
 </body>
