@@ -14,6 +14,7 @@ def get_location(domain):
 
     ip = get_ip(domain)
     response = requests.get(f"https://ipapi.co/{ip}/json/").json()
+    return response
     # print("\nServer Location Details\n")
     # print(
     #     "ip : ",
@@ -26,7 +27,7 @@ def get_location(domain):
     #     response.get("country_name"),
     #     "\npin : ",
     #     response.get("postal"),
-    #     "\nlatitude : ",
+    #     "\nlatitude : ", 	
     #     response.get("latitude"),
     #     "\nlongitude : ",
     #     response.get("longitude"),
