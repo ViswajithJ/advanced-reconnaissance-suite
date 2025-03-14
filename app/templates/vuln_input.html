@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<h1>VULNERABILITY SCANNER</h1>
+	<form action="/vuln_scanner/input" method="POST">
+		<label for="domain_name">Domain Name: </label>
+		<input type="text" name="domain_name" required>
+		<h3>Options</h3><br><br>
+		<input type="checkbox" id="sslstripping" name="option" value="SSL Stripping">
+		<label for="sslstripping">SSL Stripping</label><br>
+		<input type="checkbox" id="xss" name="option" value="Cross-Site Scripting">
+		<label for="xss">Cross-Site Scripting</label><br>
+		<input type="checkbox" id="mimesniff" name="option" value="MIME-Type Sniffing">
+		<label for="mimesniff">MIME-Type Sniffing</label><br>
+		<input type="checkbox" id="clickjack" name="option" value="Clickjacking">
+		<label for="clickjack">Clickjacking</label><br>
+		<input type="checkbox" id="reflectedxss" name="option" value="Reflected Cross-Site Scripting">
+		<label for="reflectedxss">Reflected Cross-Site Scripting</label><br>
+		<input type="checkbox" id="infoleakreferrer" name="option" value="Infoleak via Referrer">
+		<label for="infoleakreferrer">Infoleak via Referrer</label><br>
+		<input type="checkbox" id="permission" name="option" value="Privilege Escalation via Permissions">
+		<label for="permission">Privilege Escalation via Permissions</label><br>
+		<input type="checkbox" id="ctspoof" name="option" value="Certificate spoofing via MITM">
+		<label for="ctspoof">Certificate spoofing via MITM</label><br>
+		<input type="checkbox" id="cachecontrol" name="option" value="Sensitive Info Caching">
+		<label for="cachecontrol">Sensitive Info Caching</label><br>
+		<input type="checkbox" id="cors" name="option" value="CORS vulnerability">
+		<label for="cors">CORS vulnerability</label><br>
+		<input type="checkbox" id="insecuremixedcontent" name="option" value="Insecure Mixed Content">
+		<label for="insecuremixedcontent">Insecure Mixed Content</label><br><br>
+		<input type="submit" name="Submit" value="Submit">
+	</form>
+</body>
+</html>
