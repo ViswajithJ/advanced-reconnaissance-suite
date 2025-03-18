@@ -285,10 +285,12 @@
                         <!-- OSINT results will be inserted here -->
                         <!-- {{ osint_result }} -->
 						<!-- {{ option_list }} -->
-						Domain : {{ osint_result["domain_name"] }}
-						{% for option in option_list %}
-							{{ option }} : {{ osint_result[option] }}<br>
-						{% endfor %}
+						<pre>
+	Domain : {{ osint_result["Domain"] }}<br>
+	{% for option in option_list %}
+	{{ option }} : {{ osint_result[option] }}<br>
+	{% endfor %}
+						</pre>
                     </div>
                 </div>
             </div>
