@@ -345,8 +345,9 @@
 				</div>
 
 				<div id="results-container" class="space-y-2 max-h-96 overflow-y-auto pr-2">
-					<!-- {{ subdir_result }} -->
-					gtsgfdgd
+					{% for subdir in subdir_result %}
+						{{ subdir }}<br>
+					{% endfor %}
 				</div>
 
 				<div class="mt-6 w-full h-1 scan-progress"></div>
