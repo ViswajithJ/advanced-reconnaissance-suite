@@ -22,7 +22,6 @@ def input():
 		if request.form.get("Submit") == "START RECONNAISSANCE":
 			domain_name = request.form.get("domain_name")
 			option_list = request.form.getlist("option")
-
 			osint_result = osint_scrape(domain_name, option_list)
 			session["osint_option_list"] = option_list
 			session["osint_result"] = osint_result
@@ -33,4 +32,5 @@ def input():
 @osint_scrapper.route("/output", methods=["GET"])
 def output():
 	osint_result = session["osint_result"]
-	return render_template("osint_output.html", osint_result=osint_result)
+	option_list = session["osint_option_list"]
+	return render_template("osint_output.html", osint_result=osint_result, option_list=option_list)
