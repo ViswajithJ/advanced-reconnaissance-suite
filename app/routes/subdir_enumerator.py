@@ -21,13 +21,12 @@ subdir_enumerator = Blueprint(
 def input():
 	if request.method == "POST":
 		if request.form.get("Submit") == "START ENUMERATION":
-			# domain_name = request.form.get("domain_name") uncomment
-			# wordlist_size = request.form.get("wordlist_size") uncomment
+			domain_name = request.form.get("domain_name").strip().lower()
+			wordlist_size = request.form.get("wordlist_size").strip().lower()
 			# change to subdir function, and its parameters
 			####
-			#test
-			domain_name = "google.com"
-			wordlist_size = "small".strip().lower()
+			# domain_name = "google.com"
+			# wordlist_size = "small".strip().lower()
 			subdir_result = subdir_enum(domain_name, wordlist_size)
 			session["subdir_result"] = subdir_result
 			print(subdir_result)
