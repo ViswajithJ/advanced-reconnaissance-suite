@@ -25,6 +25,7 @@ def input():
 			osint_result = osint_scrape(domain_name, option_list)
 			session["osint_option_list"] = option_list
 			session["osint_result"] = osint_result
+			print(osint_result)
 			return redirect(url_for("osint_scrapper.output"))
 	return render_template("osint_input.html")
 
