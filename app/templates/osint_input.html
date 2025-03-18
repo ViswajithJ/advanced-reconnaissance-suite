@@ -2,6 +2,1127 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Scrapper | Advanced Recon Suite</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #0a0e17;
+            color: #00ff9d;
+            overflow-x: hidden;
+        }
+
+        .title-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d;
+        }
+
+        input[type="text"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            color: #00ff9d;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ff9d;
+            box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+            outline: none;
+        }
+
+        .checkbox-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container:hover {
+            transform: translateX(5px);
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 3px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        input[type="checkbox"]:checked~.checkmark {
+            background-color: rgba(0, 255, 157, 0.2);
+            border-color: #00ff9d;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            width: 5px;
+            height: 10px;
+            border: solid #00ff9d;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        input[type="checkbox"]:checked~.checkmark:after {
+            display: block;
+        }
+
+        input[type="submit"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.5);
+            color: #00ff9d;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgba(0, 255, 157, 0.2);
+            border-color: #00ff9d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #00ff9d, transparent);
+        }
+
+        .form-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            height: 200%;
+            width: 100px;
+            background: rgba(0, 255, 157, 0.1);
+            transform: rotate(45deg);
+            top: -50%;
+            left: -100px;
+            z-index: 0;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100px;
+            }
+
+            50% {
+                left: 120%;
+            }
+
+            100% {
+                left: -100px;
+            }
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .circle-pattern {
+            position: absolute;
+            background-color: rgba(0, 255, 157, 0.05);
+            border-radius: 50%;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.15;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+        }
+
+        .option-icon {
+            display: inline-block;
+            margin-right: 8px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scan-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(0, 255, 157, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan-line 2s infinite;
+        }
+
+        @keyframes scan-line {
+            0% {
+                top: -150%;
+            }
+
+            100% {
+                top: 150%;
+            }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #00ff9d
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div id="particles-js"></div>
+
+    <div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
+    <div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+    <div class="relative z-10">
+        <header
+            class="flex justify-between items-center px-8 py-6 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md border-b border-green-400 border-opacity-30">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center">
+                    <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 6V12L16 14" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <h1 class="text-2xl font-bold title-font tracking-wider glow">ADVANCED RECON SUITE</h1>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Home</a>
+                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Documentation</a>
+                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">About</a>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-12">
+            <div class="mb-10 flex items-center">
+                <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="#00ff9d" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="#00ff9d"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1 class="text-4xl font-bold title-font tracking-wide typewriter glow">OSINT SCRAPPER</h1>
+            </div>
+
+            <div
+                class="form-card bg-gray-900 bg-opacity-80 rounded-lg border border-green-500 border-opacity-30 p-8 backdrop-filter backdrop-blur-sm max-w-3xl mx-auto">
+                <p class="text-gray-400 mb-8">Collect open-source intelligence from public resources. Select which
+                    information to gather about your target domain to build comprehensive reconnaissance intelligence.
+                </p>
+
+                <form action="/osint_scrapper/input" method="POST" class="space-y-6">
+                    <div class="space-y-4">
+                        <label for="domain_name" class="block text-xl section-title">Target Domain</label>
+                        <div class="relative mt-2">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <input type="text" name="domain_name"
+                                class="pl-10 w-full py-3 px-4 rounded-md focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                                placeholder="example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-xl section-title">Select Intelligence to Gather</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="serverstatus" name="option" value="Server Status">
+                                <span class="checkmark"></span>
+                                <label for="serverstatus">
+                                    <span class="option-icon">📊</span>Server Status
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="ip" name="option" value="IP">
+                                <span class="checkmark"></span>
+                                <label for="ip">
+                                    <span class="option-icon">🌐</span>IP Address
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="serverlocation" name="option" value="Server Location">
+                                <span class="checkmark"></span>
+                                <label for="serverlocation">
+                                    <span class="option-icon">📍</span>Server Location
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dnsinfo" name="option" value="Domain Registration Info">
+                                <span class="checkmark"></span>
+                                <label for="dnsinfo">
+                                    <span class="option-icon">📝</span>Domain Registration Details
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="cookies" name="option" value="Cookies">
+                                <span class="checkmark"></span>
+                                <label for="cookies">
+                                    <span class="option-icon">🍪</span>Cookies
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="sslcert" name="option" value="SSL Certificate Info">
+                                <span class="checkmark"></span>
+                                <label for="sslcert">
+                                    <span class="option-icon">
+                                        <span class="option-icon">🔒</span>SSL Certificate Info
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="firewallstatus" name="option" value="Firewall Status">
+                                <span class="checkmark"></span>
+                                <label for="firewallstatus">
+                                    <span class="option-icon">🛡️</span>Firewall Status
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center mt-8">
+                        <input type="submit" name="Submit" value="START RECONNAISSANCE"
+                            class="scan-button bg-black bg-opacity-70 hover:bg-opacity-90 text-green-400 font-bold py-3 px-8 rounded-md border border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20">
+                        <!-- <button
+                            class="scan-button bg-black bg-opacity-70 hover:bg-opacity-90 text-green-400 font-bold py-3 px-8 rounded-md border border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                START RECONNAISSANCE
+                            </div>
+                        </button> -->
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="mt-16 py-6 bg-black bg-opacity-60 border-t border-green-400 border-opacity-30 hidden">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-400 text-sm">© 2025 Advanced Reconnaissance Suite. All rights reserved.</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy
+                            Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of
+                            Service</a>
+                        <a href="#"
+                            class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            particlesJS("particles-js", {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#00ff9d"
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: {
+                        value: 0.3,
+                        random: false,
+                        anim: {
+                            enable: false,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: false,
+                            speed: 40,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#00ff9d",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 0.5
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+
+            // Add animation for checkbox items
+            const checkboxContainers = document.querySelectorAll('.checkbox-container');
+            checkboxContainers.forEach((container, index) => {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+
+            // Add typewriter effect for section titles
+            const typeElements = document.querySelectorAll('.typewriter');
+            if (typeElements.length) {
+                typeElements.forEach(element => {
+                    const text = element.textContent;
+                    element.textContent = '';
+                    let i = 0;
+                    const interval = setInterval(() => {
+                        if (i < text.length) {
+                            element.textContent += text.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                        }
+                    }, 50);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSINT Scrapper | Advanced Recon Suite</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #0a0e17;
+            color: #00ff9d;
+            overflow-x: hidden;
+        }
+
+        .title-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glow {
+            text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d;
+        }
+
+        input[type="text"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            color: #00ff9d;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #00ff9d;
+            box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+            outline: none;
+        }
+
+        .checkbox-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-container:hover {
+            transform: translateX(5px);
+        }
+
+        input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: relative;
+            height: 20px;
+            width: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 3px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        input[type="checkbox"]:checked~.checkmark {
+            background-color: rgba(0, 255, 157, 0.2);
+            border-color: #00ff9d;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            width: 5px;
+            height: 10px;
+            border: solid #00ff9d;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        input[type="checkbox"]:checked~.checkmark:after {
+            display: block;
+        }
+
+        input[type="submit"] {
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 157, 0.5);
+            color: #00ff9d;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: rgba(0, 255, 157, 0.2);
+            border-color: #00ff9d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, #00ff9d, transparent);
+        }
+
+        .form-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            height: 200%;
+            width: 100px;
+            background: rgba(0, 255, 157, 0.1);
+            transform: rotate(45deg);
+            top: -50%;
+            left: -100px;
+            z-index: 0;
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100px;
+            }
+
+            50% {
+                left: 120%;
+            }
+
+            100% {
+                left: -100px;
+            }
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .circle-pattern {
+            position: absolute;
+            background-color: rgba(0, 255, 157, 0.05);
+            border-radius: 50%;
+            animation: pulse 8s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.15;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+        }
+
+        .option-icon {
+            display: inline-block;
+            margin-right: 8px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scan-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scan-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(transparent, rgba(0, 255, 157, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan-line 2s infinite;
+        }
+
+        @keyframes scan-line {
+            0% {
+                top: -150%;
+            }
+
+            100% {
+                top: 150%;
+            }
+        }
+
+        .typewriter {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #00ff9d
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <div id="particles-js"></div>
+
+    <div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
+    <div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+    <div class="relative z-10">
+        <header
+            class="flex justify-between items-center px-8 py-6 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md border-b border-green-400 border-opacity-30">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center">
+                    <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 6V12L16 14" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <h1 class="text-2xl font-bold title-font tracking-wider glow">ADVANCED RECON SUITE</h1>
+                </a>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="/" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Home</a>
+                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Documentation</a>
+                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">About</a>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-4 py-12">
+            <div class="mb-10 flex items-center">
+                <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="#00ff9d" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="#00ff9d"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h1 class="text-4xl font-bold title-font tracking-wide typewriter glow">OSINT SCRAPPER</h1>
+            </div>
+
+            <div
+                class="form-card bg-gray-900 bg-opacity-80 rounded-lg border border-green-500 border-opacity-30 p-8 backdrop-filter backdrop-blur-sm max-w-3xl mx-auto">
+                <p class="text-gray-400 mb-8">Collect open-source intelligence from public resources. Select which
+                    information to gather about your target domain to build comprehensive reconnaissance intelligence.
+                </p>
+
+                <form action="/osint_scrapper/input" method="POST" class="space-y-6">
+                    <div class="space-y-4">
+                        <label for="domain_name" class="block text-xl section-title">Target Domain</label>
+                        <div class="relative mt-2">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <input type="text" name="domain_name"
+                                class="pl-10 w-full py-3 px-4 rounded-md focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+                                placeholder="example.com" required>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <label class="block text-xl section-title">Select Intelligence to Gather</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="serverstatus" name="option" value="Server Status">
+                                <span class="checkmark"></span>
+                                <label for="serverstatus">
+                                    <span class="option-icon">📊</span>Server Status
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="ip" name="option" value="IP">
+                                <span class="checkmark"></span>
+                                <label for="ip">
+                                    <span class="option-icon">🌐</span>IP Address
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="serverlocation" name="option" value="Server Location">
+                                <span class="checkmark"></span>
+                                <label for="serverlocation">
+                                    <span class="option-icon">📍</span>Server Location
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="dnsinfo" name="option" value="Domain Registration Info">
+                                <span class="checkmark"></span>
+                                <label for="dnsinfo">
+                                    <span class="option-icon">📝</span>Domain Registration Details
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="cookies" name="option" value="Cookies">
+                                <span class="checkmark"></span>
+                                <label for="cookies">
+                                    <span class="option-icon">🍪</span>Cookies
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="sslcert" name="option" value="SSL Certificate Info">
+                                <span class="checkmark"></span>
+                                <label for="sslcert">
+                                    <span class="option-icon">
+                                        <span class="option-icon">🔒</span>SSL Certificate Info
+                                </label>
+                            </div>
+
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="firewallstatus" name="option" value="Firewall Status">
+                                <span class="checkmark"></span>
+                                <label for="firewallstatus">
+                                    <span class="option-icon">🛡️</span>Firewall Status
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center mt-8">
+                        <button type="submit" 
+                            class="scan-button bg-black bg-opacity-70 hover:bg-opacity-90 text-green-400 font-bold py-3 px-8 rounded-md border border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                                START RECONNAISSANCE
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer class="mt-16 py-6 bg-black bg-opacity-60 border-t border-green-400 border-opacity-30 hidden">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-400 text-sm">© 2025 Advanced Reconnaissance Suite. All rights reserved.</p>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy
+                            Policy</a>
+                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of
+                            Service</a>
+                        <a href="#"
+                            class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            particlesJS("particles-js", {
+                particles: {
+                    number: {
+                        value: 80,
+                        density: {
+                            enable: true,
+                            value_area: 800
+                        }
+                    },
+                    color: {
+                        value: "#00ff9d"
+                    },
+                    shape: {
+                        type: "circle",
+                        stroke: {
+                            width: 0,
+                            color: "#000000"
+                        }
+                    },
+                    opacity: {
+                        value: 0.3,
+                        random: false,
+                        anim: {
+                            enable: false,
+                            speed: 1,
+                            opacity_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: {
+                            enable: false,
+                            speed: 40,
+                            size_min: 0.1,
+                            sync: false
+                        }
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#00ff9d",
+                        opacity: 0.2,
+                        width: 1
+                    },
+                    move: {
+                        enable: true,
+                        speed: 1.5,
+                        direction: "none",
+                        random: false,
+                        straight: false,
+                        out_mode: "out",
+                        bounce: false,
+                        attract: {
+                            enable: false,
+                            rotateX: 600,
+                            rotateY: 1200
+                        }
+                    }
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: {
+                            enable: true,
+                            mode: "grab"
+                        },
+                        onclick: {
+                            enable: true,
+                            mode: "push"
+                        },
+                        resize: true
+                    },
+                    modes: {
+                        grab: {
+                            distance: 140,
+                            line_linked: {
+                                opacity: 0.5
+                            }
+                        },
+                        push: {
+                            particles_nb: 4
+                        }
+                    }
+                },
+                retina_detect: true
+            });
+
+            // Add animation for checkbox items
+            const checkboxContainers = document.querySelectorAll('.checkbox-container');
+            checkboxContainers.forEach((container, index) => {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(20px)';
+
+                setTimeout(() => {
+                    container.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0)';
+                }, 100 + (index * 100));
+            });
+
+            // Add typewriter effect for section titles
+            const typeElements = document.querySelectorAll('.typewriter');
+            if (typeElements.length) {
+                typeElements.forEach(element => {
+                    const text = element.textContent;
+                    element.textContent = '';
+                    let i = 0;
+                    const interval = setInterval(() => {
+                        if (i < text.length) {
+                            element.textContent += text.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                        }
+                    }, 50);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
@@ -23,8 +1144,8 @@
 		<label for="dnsinfo">Domain Registration Details </label><br>
 		<input type="checkbox" id="cookies" name="option" value="Cookies">
 		<label for="cookies"> Cookies </label><br>
-		<!-- <input type="checkbox" id="httpheaders" name="option" value="HTTP Headers">
-		<label for="httpheaders">HTTP Headers</label><br> -->
+		<input type="checkbox" id="httpheaders" name="option" value="HTTP Headers">
+		<label for="httpheaders">HTTP Headers</label><br>
 		<input type="checkbox" id="sslcert" name="option" value="SSL Certificate Info">
 		<label for="sslcert"> SSL Certificate Info</label><br>
 		<input type="checkbox" id="firewallstatus" name="option" value="Firewall Status">
@@ -33,4 +1154,4 @@
 	</form>
 </body>
 
-</html>
+</html> --> 
