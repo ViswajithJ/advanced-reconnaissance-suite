@@ -283,8 +283,12 @@
                 <div class="grid grid-cols-1 gap-6">
                     <div id="results-container" class="space-y-6">
                         <!-- OSINT results will be inserted here -->
-                        {{ osint_result }}
-						{{ option_list }}
+                        <!-- {{ osint_result }} -->
+						<!-- {{ option_list }} -->
+						Domain : {{ osint_result["domain_name"] }}
+						{% for option in option_list %}
+							{{ option }} : {{ osint_result[option] }}<br>
+						{% endfor %}
                     </div>
                 </div>
             </div>
