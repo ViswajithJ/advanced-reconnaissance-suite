@@ -259,7 +259,202 @@
 
                 <div class="space-y-6">
                     <div class="vuln-results">
-                        {{ vuln_result }}
+                        <!-- {{ vuln_result }} -->
+                        <div class="vuln-summary mb-8">
+                            <h3 class="text-xl font-semibold section-title mb-4">VULNERABILITY SUMMARY</h3>
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div
+                                    class="bg-black bg-opacity-50 p-4 rounded-lg border border-green-500 border-opacity-30">
+                                    <span class="text-4xl font-bold status-danger">3</span>
+                                    <p class="text-sm mt-1">Critical</p>
+                                </div>
+                                <div
+                                    class="bg-black bg-opacity-50 p-4 rounded-lg border border-green-500 border-opacity-30">
+                                    <span class="text-4xl font-bold status-warning">7</span>
+                                    <p class="text-sm mt-1">Medium</p>
+                                </div>
+                                <div
+                                    class="bg-black bg-opacity-50 p-4 rounded-lg border border-green-500 border-opacity-30">
+                                    <span class="text-4xl font-bold status-safe">12</span>
+                                    <p class="text-sm mt-1">Low</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="vuln-details">
+                            <h3 class="text-xl font-semibold section-title mb-4">VULNERABILITY DETAILS</h3>
+
+                            <!-- Critical Vulnerabilities -->
+                            <div class="mb-6">
+                                <h4 class="text-lg font-medium mb-2 status-danger flex items-center">
+                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    CRITICAL VULNERABILITIES
+                                </h4>
+
+                                <div class="space-y-4">
+                                    <div
+                                        class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
+                                        <h5 class="font-bold text-red-400">SQL Injection Vulnerability</h5>
+                                        <p class="text-sm text-gray-300 mt-1">The application's search functionality is
+                                            vulnerable to SQL injection attacks.</p>
+                                        <div class="mt-2">
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-red-400 border border-red-500 border-opacity-30">
+                                                CVE-2023-34721
+                                            </span>
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-gray-400 border border-gray-500 border-opacity-30 ml-2">
+                                                CVSS: 9.1
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 border-t border-red-500 border-opacity-20 pt-2">
+                                            <p class="text-xs text-gray-400"><span class="text-red-400">Location:</span>
+                                                /search.php</p>
+                                            <p class="text-xs text-gray-400 mt-1"><span
+                                                    class="text-red-400">Remediation:</span> Implement prepared
+                                                statements or parameterized queries.</p>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
+                                        <h5 class="font-bold text-red-400">Cross-Site Scripting (XSS)</h5>
+                                        <p class="text-sm text-gray-300 mt-1">Reflected XSS vulnerability detected in
+                                            the contact form.</p>
+                                        <div class="mt-2">
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-red-400 border border-red-500 border-opacity-30">
+                                                CVE-2023-27631
+                                            </span>
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-gray-400 border border-gray-500 border-opacity-30 ml-2">
+                                                CVSS: 8.2
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 border-t border-red-500 border-opacity-20 pt-2">
+                                            <p class="text-xs text-gray-400"><span class="text-red-400">Location:</span>
+                                                /contact.php</p>
+                                            <p class="text-xs text-gray-400 mt-1"><span
+                                                    class="text-red-400">Remediation:</span> Implement output encoding
+                                                and input validation.</p>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
+                                        <h5 class="font-bold text-red-400">Insecure Direct Object Reference</h5>
+                                        <p class="text-sm text-gray-300 mt-1">The application doesn't properly verify
+                                            access to user profile data.</p>
+                                        <div class="mt-2">
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-red-400 border border-red-500 border-opacity-30">
+                                                CVE-2024-12507
+                                            </span>
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-gray-400 border border-gray-500 border-opacity-30 ml-2">
+                                                CVSS: 7.5
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 border-t border-red-500 border-opacity-20 pt-2">
+                                            <p class="text-xs text-gray-400"><span class="text-red-400">Location:</span>
+                                                /profile.php</p>
+                                            <p class="text-xs text-gray-400 mt-1"><span
+                                                    class="text-red-400">Remediation:</span> Implement proper access
+                                                controls and user authentication checks.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Medium Vulnerabilities (Sample) -->
+                            <div class="mb-6">
+                                <h4 class="text-lg font-medium mb-2 status-warning flex items-center">
+                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    MEDIUM VULNERABILITIES
+                                </h4>
+
+                                <div class="space-y-4">
+                                    <div
+                                        class="bg-black bg-opacity-50 p-4 rounded-lg border border-yellow-500 border-opacity-30">
+                                        <h5 class="font-bold text-yellow-400">Missing HTTP Security Headers</h5>
+                                        <p class="text-sm text-gray-300 mt-1">The application is missing several
+                                            important security headers.</p>
+                                        <div class="mt-2">
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-yellow-400 border border-yellow-500 border-opacity-30">
+                                                OWASP-TOP10
+                                            </span>
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-gray-400 border border-gray-500 border-opacity-30 ml-2">
+                                                CVSS: 5.2
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 border-t border-yellow-500 border-opacity-20 pt-2">
+                                            <p class="text-xs text-gray-400"><span class="text-yellow-400">Missing
+                                                    Headers:</span> Content-Security-Policy, X-Frame-Options,
+                                                X-XSS-Protection</p>
+                                            <p class="text-xs text-gray-400 mt-1"><span
+                                                    class="text-yellow-400">Remediation:</span> Implement proper
+                                                security headers in the HTTP responses.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Additional medium vulnerabilities would be listed here -->
+                                </div>
+                            </div>
+
+                            <!-- Low Vulnerabilities (Sample) -->
+                            <div class="mb-6">
+                                <h4 class="text-lg font-medium mb-2 status-safe flex items-center">
+                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    LOW VULNERABILITIES
+                                </h4>
+
+                                <div class="space-y-4">
+                                    <div
+                                        class="bg-black bg-opacity-50 p-4 rounded-lg border border-green-500 border-opacity-30">
+                                        <h5 class="font-bold text-green-400">Cookie Without Secure Flag</h5>
+                                        <p class="text-sm text-gray-300 mt-1">Session cookies are not set with the
+                                            secure flag.</p>
+                                        <div class="mt-2">
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-green-400 border border-green-500 border-opacity-30">
+                                                OWASP-TOP10
+                                            </span>
+                                            <span
+                                                class="inline-block bg-black bg-opacity-70 text-xs px-2 py-1 rounded text-gray-400 border border-gray-500 border-opacity-30 ml-2">
+                                                CVSS: 3.1
+                                            </span>
+                                        </div>
+                                        <div class="mt-3 border-t border-green-500 border-opacity-20 pt-2">
+                                            <p class="text-xs text-gray-400"><span
+                                                    class="text-green-400">Remediation:</span> Set the secure flag on
+                                                all cookies containing sensitive information.</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Additional low vulnerabilities would be listed here -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- {{ vuln_result End}} -->
                     </div>
                 </div>
 
@@ -561,7 +756,7 @@
                 </div>
             `;
 
-            document.querySelector('.vuln-results').innerHTML = vulnResults;
+            // document.querySelector('.vuln-results').innerHTML = vulnResults;
         });
     </script>
 </body>
