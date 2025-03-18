@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Subdomain Results | Advanced Recon Suite</title>
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+		body {
+			font-family: 'Share Tech Mono', monospace;
+			background-color: #0a0e17;
+			color: #00ff9d;
+			overflow-x: hidden;
+		}
+
+		.title-font {
+			font-family: 'Orbitron', sans-serif;
+		}
+
+		.glow {
+			text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d;
+		}
+
+		.circle-pattern {
+			position: absolute;
+			background-color: rgba(0, 255, 157, 0.05);
+			border-radius: 50%;
+			animation: pulse 8s infinite ease-in-out;
+		}
+
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+				opacity: 0.1;
+			}
+
+			50% {
+				transform: scale(1.1);
+				opacity: 0.15;
+			}
+
+			100% {
+				transform: scale(1);
+				opacity: 0.1;
+			}
+		}
+
+		.result-card {
+			position: relative;
+			overflow: hidden;
+		}
+
+		.result-card::before {
+			content: '';
+			position: absolute;
+			height: 200%;
+			width: 100px;
+			background: rgba(0, 255, 157, 0.1);
+			transform: rotate(45deg);
+			top: -50%;
+			left: -100px;
+			z-index: 0;
+			animation: shine 3s infinite;
+		}
+
+		@keyframes shine {
+			0% {
+				left: -100px;
+			}
+
+			50% {
+				left: 120%;
+			}
+
+			100% {
+				left: -100px;
+			}
+		}
+
+		#particles-js {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 0;
+		}
+
+		.section-title {
+			position: relative;
+			display: inline-block;
+			padding-bottom: 5px;
+		}
+
+		.section-title::after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 2px;
+			bottom: 0;
+			left: 0;
+			background: linear-gradient(90deg, #00ff9d, transparent);
+		}
+
+		.typewriter {
+			overflow: hidden;
+			white-space: nowrap;
+			animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+		}
+
+		@keyframes typing {
+			from {
+				width: 0
+			}
+
+			to {
+				width: 100%
+			}
+		}
+
+		@keyframes blink-caret {
+
+			from,
+			to {
+				border-color: transparent
+			}
+
+			50% {
+				border-color: #00ff9d
+			}
+		}
+
+		.result-entry {
+			transition: all 0.3s ease;
+			opacity: 0;
+			transform: translateY(20px);
+		}
+
+		.result-entry.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.status-code {
+			font-weight: bold;
+			border-radius: 4px;
+			padding: 2px 8px;
+		}
+
+		.status-200 {
+			background-color: rgba(0, 255, 157, 0.2);
+			color: #00ff9d;
+		}
+
+		.status-301,
+		.status-302 {
+			background-color: rgba(255, 165, 0, 0.2);
+			color: #ffa500;
+		}
+
+		.status-403 {
+			background-color: rgba(255, 215, 0, 0.2);
+			color: #ffd700;
+		}
+
+		.status-404 {
+			background-color: rgba(255, 0, 0, 0.2);
+			color: #ff6b6b;
+		}
+
+		.status-500 {
+			background-color: rgba(255, 0, 0, 0.3);
+			color: #ff4040;
+		}
+
+		.scan-progress {
+			height: 4px;
+			background: linear-gradient(90deg, #00ff9d, transparent);
+			background-size: 200% 100%;
+			animation: scanning 2s linear infinite;
+		}
+
+		@keyframes scanning {
+			0% {
+				background-position: 200% 0;
+			}
+
+			100% {
+				background-position: -200% 0;
+			}
+		}
+
+		.back-button {
+			background-color: rgba(0, 0, 0, 0.5);
+			border: 1px solid rgba(0, 255, 157, 0.5);
+			color: #00ff9d;
+			transition: all 0.3s ease;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+
+		.back-button:hover {
+			background-color: rgba(0, 255, 157, 0.2);
+			border-color: #00ff9d;
+			transform: translateY(-2px);
+			box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3);
+		}
+
+		.animate-pulse-slow {
+			animation: pulse-slow 3s infinite;
+		}
+
+		@keyframes pulse-slow {
+
+			0%,
+			100% {
+				opacity: 1;
+			}
+
+			50% {
+				opacity: 0.5;
+			}
+		}
+
+		.result-summary {
+			animation: fadeIn 1s ease-in;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.highlight {
+			position: relative;
+			display: inline-block;
+		}
+
+		.highlight::after {
+			content: '';
+			position: absolute;
+			width: 100%;
+			height: 30%;
+			bottom: 0;
+			left: 0;
+			background-color: rgba(0, 255, 157, 0.2);
+			z-index: -1;
+		}
+	</style>
+</head>
+
+<body class="min-h-screen">
+	<div id="particles-js"></div>
+
+	<div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
+	<div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+	<div class="relative z-10">
+		<header
+			class="flex justify-between items-center px-8 py-6 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md border-b border-green-400 border-opacity-30">
+			<div class="flex items-center">
+				<a href="/" class="flex items-center">
+					<svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+							stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						<path d="M12 6V12L16 14" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
+							stroke-linejoin="round" />
+					</svg>
+					<h1 class="text-2xl font-bold title-font tracking-wider glow">ADVANCED RECON SUITE</h1>
+				</a>
+			</div>
+			<div class="hidden md:flex space-x-6">
+				<a href="/" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Home</a>
+				<a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Documentation</a>
+				<a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">About</a>
+			</div>
+		</header>
+
+		<main class="container mx-auto px-4 py-12">
+			<div class="mb-10 flex items-center">
+				<svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"
+						stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+				<h1 class="text-4xl font-bold title-font tracking-wide typewriter glow">ENUMERATION RESULTS</h1>
+			</div>
+
+			<div id="scan-summary"
+				class="result-summary mb-8 bg-gray-900 bg-opacity-80 rounded-lg border border-green-500 border-opacity-30 p-6 backdrop-filter backdrop-blur-sm max-w-3xl mx-auto">
+				<h2 class="text-2xl font-bold mb-4 section-title">Scan Summary</h2>
+				<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+					<div class="bg-black bg-opacity-50 rounded-lg p-4 border border-green-500 border-opacity-20">
+						<div class="text-gray-400 text-sm">Target URL</div>
+						<div class="text-lg font-bold truncate" id="target-url">example.com</div>
+					</div>
+					<div class="bg-black bg-opacity-50 rounded-lg p-4 border border-green-500 border-opacity-20">
+						<div class="text-gray-400 text-sm">Subdomains Found</div>
+						<div class="text-lg font-bold" id="dirs-found">--</div>
+					</div>
+					<div class="bg-black bg-opacity-50 rounded-lg p-4 border border-green-500 border-opacity-20">
+						<div class="text-gray-400 text-sm">Scan Duration</div>
+						<div class="text-lg font-bold" id="scan-duration">--:--</div>
+					</div>
+				</div>
+			</div>
+
+			<div
+				class="result-card bg-gray-900 bg-opacity-80 rounded-lg border border-green-500 border-opacity-30 p-8 backdrop-filter backdrop-blur-sm max-w-3xl mx-auto">
+				<div class="flex justify-between items-center mb-6">
+					<h2 class="text-2xl font-bold section-title">Subdomain Findings</h2>
+					<div class="flex items-center text-gray-400 text-sm">
+						<div class="w-3 h-3 rounded-full bg-green-500 animate-pulse-slow mr-2"></div>
+						<span id="status-text">Scan Complete</span>
+					</div>
+				</div>
+
+				<div class="space-y-2 mb-6">
+					<div class="flex space-x-4">
+						<button id="filter-all"
+							class="text-sm px-3 py-1 rounded bg-gray-800 text-white hover:bg-gray-700 transition-colors">All</button>
+						<button id="filter-200"
+							class="text-sm px-3 py-1 rounded bg-gray-800 text-green-400 hover:bg-gray-700 transition-colors">200
+							OK</button>
+						<button id="filter-30x"
+							class="text-sm px-3 py-1 rounded bg-gray-800 text-orange-400 hover:bg-gray-700 transition-colors">30x
+							Redirect</button>
+						<button id="filter-403"
+							class="text-sm px-3 py-1 rounded bg-gray-800 text-yellow-400 hover:bg-gray-700 transition-colors">403
+							Forbidden</button>
+					</div>
+				</div>
+
+				<div id="results-container" class="space-y-2 max-h-96 overflow-y-auto pr-2">
+					{% for subdom in subdom_result %}
+						{{ subdom }}<br>
+					{% endfor %}
+				</div>
+
+				<div class="mt-6 w-full h-1 scan-progress"></div>
+
+				<div class="flex justify-between items-center mt-8">
+					<a href="/" class="back-button py-2 px-6 rounded-md flex items-center">
+						<svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						Back to Scanner
+					</a>
+					<button id="export-btn" class="back-button py-2 px-6 rounded-md flex items-center">
+						<svg class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+								stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						Export Results
+					</button>
+				</div>
+			</div>
+
+			<div class="mt-10 max-w-3xl mx-auto">
+				<div class="bg-gray-900 bg-opacity-60 rounded-lg border border-green-500 border-opacity-20 p-6">
+					<h3 class="text-xl font-bold mb-4 flex items-center">
+						<svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						Next Steps
+					</h3>
+					<ul class="space-y-2 text-gray-400 text-sm">
+						<li class="flex items-start">
+							<span class="text-green-400 mr-2">1.</span>
+							<span>Examine <span class="highlight">200 OK</span> responses for sensitive
+								information</span>
+						</li>
+						<li class="flex items-start">
+							<span class="text-green-400 mr-2">2.</span>
+							<span>Investigate <span class="highlight">403 Forbidden</span> responses for potential
+								access control issues</span>
+						</li>
+						<li class="flex items-start">
+							<span class="text-green-400 mr-2">3.</span>
+							<span>Follow <span class="highlight">301/302</span> redirects to discover additional
+								endpoints</span>
+						</li>
+						<li class="flex items-start">
+							<span class="text-green-400 mr-2">4.</span>
+							<span>Export results for further analysis or documentation</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+
+		<footer class="mt-16 py-6 bg-black bg-opacity-60 border-t border-green-400 border-opacity-30">
+			<div class="container mx-auto px-6">
+				<div class="flex flex-col md:flex-row justify-between items-center">
+					<div class="mb-4 md:mb-0">
+						<p class="text-gray-400 text-sm">© 2025 Advanced Reconnaissance Suite. All rights reserved.</p>
+					</div>
+					<div class="flex space-x-4">
+						<a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy
+							Policy</a>
+						<a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of
+							Service</a>
+						<a href="#"
+							class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Initialize particles.js
+			particlesJS("particles-js", {
+				particles: {
+					number: {
+						value: 80,
+						density: {
+							enable: true,
+							value_area: 800
+						}
+					},
+					color: {
+						value: "#00ff9d"
+					},
+					shape: {
+						type: "circle",
+						stroke: {
+							width: 0,
+							color: "#000000"
+						}
+					},
+					opacity: {
+						value: 0.3,
+						random: false,
+						anim: {
+							enable: false,
+							speed: 1,
+							opacity_min: 0.1,
+							sync: false
+						}
+					},
+					size: {
+						value: 3,
+						random: true,
+						anim: {
+							enable: false,
+							speed: 40,
+							size_min: 0.1,
+							sync: false
+						}
+					},
+					line_linked: {
+						enable: true,
+						distance: 150,
+						color: "#00ff9d",
+						opacity: 0.2,
+						width: 1
+					},
+					move: {
+						enable: true,
+						speed: 1.5,
+						direction: "none",
+						random: false,
+						straight: false,
+						out_mode: "out",
+						bounce: false,
+						attract: {
+							enable: false,
+							rotateX: 600,
+							rotateY: 1200
+						}
+					}
+				},
+				interactivity: {
+					detect_on: "canvas",
+					events: {
+						onhover: {
+							enable: true,
+							mode: "grab"
+						},
+						onclick: {
+							enable: true,
+							mode: "push"
+						},
+						resize: true
+					},
+					modes: {
+						grab: {
+							distance: 140,
+							line_linked: {
+								opacity: 0.5
+							}
+						},
+						push: {
+							particles_nb: 4
+						}
+					}
+				},
+				retina_detect: true
+			});
+
+			// Process the subdir_result content
+			// const resultsContainer = document.getElementById('results-container');
+
+			// Extract URL from the first reference in the content (if available)
+			const urlMatch = resultsContainer.innerHTML.match(/https?:\/\/[^\/]+/);
+			if (urlMatch) {
+				document.getElementById('target-url').textContent = urlMatch[0];
+			}
+
+			// Parse the subdir_result content and format it
+			const contentLines = resultsContainer.innerHTML.split('<br>').filter(line => line.trim() !== '');
+
+			// Clear the container
+			resultsContainer.innerHTML = '';
+
+			// Process each line and create styled elements
+			let foundDirs = 0;
+
+			contentLines.forEach((line, index) => {
+				if (line.includes('Found') || line.includes('200') || line.includes('301') || line.includes('302') || line.includes('403') || line.includes('404') || line.includes('500')) {
+					foundDirs++;
+
+					// Extract status code
+					let statusCode = '';
+					let statusClass = '';
+
+					if (line.includes('200')) {
+						statusCode = '200';
+						statusClass = 'status-200';
+					} else if (line.includes('301')) {
+						statusCode = '301';
+						statusClass = 'status-301';
+					} else if (line.includes('302')) {
+						statusCode = '302';
+						statusClass = 'status-302';
+					} else if (line.includes('403')) {
+						statusCode = '403';
+						statusClass = 'status-403';
+					} else if (line.includes('404')) {
+						statusCode = '404';
+						statusClass = 'status-404';
+					} else if (line.includes('500')) {
+						statusCode = '500';
+						statusClass = 'status-500';
+					}
+
+					// Extract path
+					const pathMatch = line.match(/\/[\w\d\/_.-]+/);
+					const path = pathMatch ? pathMatch[0] : '';
+
+					// Create result entry
+					const resultEntry = document.createElement('div');
+					resultEntry.className = `result-entry flex justify-between items-center py-2 px-4 bg-black bg-opacity-50 rounded-md border border-green-500 border-opacity-20 hover:border-opacity-50 transition-all duration-300 ${statusCode ? `filter-${statusCode}` : ''}`;
+					resultEntry.innerHTML = `
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-green-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7 7L17 17M17 7L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="font-mono">${path}</span>
+                        </div>
+                        <span class="status-code ${statusClass}">${statusCode}</span>
+                    `;
+
+					resultsContainer.appendChild(resultEntry);
+
+					// Animate entry with delay
+					setTimeout(() => {
+						resultEntry.classList.add('visible');
+					}, index * 50);
+				}
+			});
+
+			// Update stats
+			document.getElementById('dirs-found').textContent = foundDirs;
+			document.getElementById('scan-duration').textContent = `${Math.floor(Math.random() * 3) + 1}:${Math.floor(Math.random() * 60).toString().padStart(2, '0')}`;
+
+			// Initialize filter buttons
+			document.getElementById('filter-all').addEventListener('click', function () {
+				document.querySelectorAll('.result-entry').forEach(entry => {
+					entry.style.display = 'flex';
+				});
+			});
+
+			document.getElementById('filter-200').addEventListener('click', function () {
+				document.querySelectorAll('.result-entry').forEach(entry => {
+					if (entry.classList.contains('filter-200')) {
+						entry.style.display = 'flex';
+					} else {
+						entry.style.display = 'none';
+					}
+				});
+			});
+
+			document.getElementById('filter-30x').addEventListener('click', function () {
+				document.querySelectorAll('.result-entry').forEach(entry => {
+					if (entry.classList.contains('filter-301') || entry.classList.contains('filter-302')) {
+						entry.style.display = 'flex';
+					} else {
+						entry.style.display = 'none';
+					}
+				});
+			});
+
+			document.getElementById('filter-403').addEventListener('click', function () {
+				document.querySelectorAll('.result-entry').forEach(entry => {
+					if (entry.classList.contains('filter-403')) {
+						entry.style.display = 'flex';
+					} else {
+						entry.style.display = 'none';
+					}
+				});
+			});
+
+			// Export button functionality
+			document.getElementById('export-btn').addEventListener('click', function () {
+				const exportData = Array.from(document.querySelectorAll('.result-entry')).map(entry => {
+					const path = entry.querySelector('.font-mono').textContent;
+					const statusCode = entry.querySelector('.status-code').textContent;
+					return `${path} [${statusCode}]`;
+				}).join('\n');
+
+				const blob = new Blob([exportData], { type: 'text/plain' });
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = 'subdomain_scan_results.txt';
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
+			});
+		});
+	</script>
+</body>
+
+</html>

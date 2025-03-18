@@ -2,370 +2,370 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Reconnaissance Suite</title>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script> -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Advanced Reconnaissance Suite</title>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+		@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
 
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: #0a0e17;
-            color: #00ff9d;
-            overflow-x: hidden;
-        }
+		body {
+			font-family: 'Share Tech Mono', monospace;
+			background-color: #0a0e17;
+			color: #00ff9d;
+			overflow-x: hidden;
+		}
 
-        .title-font {
-            font-family: 'Orbitron', sans-serif;
-        }
+		.title-font {
+			font-family: 'Orbitron', sans-serif;
+		}
 
-        .glow {
-            text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d;
-        }
+		.glow {
+			text-shadow: 0 0 10px #00ff9d, 0 0 20px #00ff9d, 0 0 30px #00ff9d;
+		}
 
-        .menu-item {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+		.menu-item {
+			transition: all 0.3s ease;
+			position: relative;
+			overflow: hidden;
+		}
 
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #00ff9d;
-            transition: width 0.3s ease;
-        }
+		.menu-item::before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background-color: #00ff9d;
+			transition: width 0.3s ease;
+		}
 
-        .menu-item:hover::before {
-            width: 100%;
-        }
+		.menu-item:hover::before {
+			width: 100%;
+		}
 
-        .menu-item:hover {
-            transform: translateY(-5px);
-            text-shadow: 0 0 10px #00ff9d;
-        }
+		.menu-item:hover {
+			transform: translateY(-5px);
+			text-shadow: 0 0 10px #00ff9d;
+		}
 
-        .circle-pattern {
-            position: absolute;
-            background-color: rgba(0, 255, 157, 0.05);
-            border-radius: 50%;
-            animation: pulse 8s infinite ease-in-out;
-        }
+		.circle-pattern {
+			position: absolute;
+			background-color: rgba(0, 255, 157, 0.05);
+			border-radius: 50%;
+			animation: pulse 8s infinite ease-in-out;
+		}
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.1;
-            }
+		@keyframes pulse {
+			0% {
+				transform: scale(1);
+				opacity: 0.1;
+			}
 
-            50% {
-                transform: scale(1.1);
-                opacity: 0.15;
-            }
+			50% {
+				transform: scale(1.1);
+				opacity: 0.15;
+			}
 
-            100% {
-                transform: scale(1);
-                opacity: 0.1;
-            }
-        }
+			100% {
+				transform: scale(1);
+				opacity: 0.1;
+			}
+		}
 
-        .typewriter {
-            overflow: hidden;
-            white-space: nowrap;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
+		.typewriter {
+			overflow: hidden;
+			white-space: nowrap;
+			animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+		}
 
-        @keyframes typing {
-            from {
-                width: 0
-            }
+		@keyframes typing {
+			from {
+				width: 0
+			}
 
-            to {
-                width: 100%
-            }
-        }
+			to {
+				width: 100%
+			}
+		}
 
-        @keyframes blink-caret {
+		@keyframes blink-caret {
 
-            from,
-            to {
-                border-color: transparent
-            }
+			from,
+			to {
+				border-color: transparent
+			}
 
-            50% {
-                border-color: #00ff9d
-            }
-        }
+			50% {
+				border-color: #00ff9d
+			}
+		}
 
-        #particles-js {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
-    </style>
+		#particles-js {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 0;
+		}
+	</style>
 </head>
 
 <body class="h-screen px-0 py-0">
-    <div id="particles-js"></div>
+	<div id="particles-js"></div>
 
-    <div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
-    <div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+	<div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
+	<div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
 
-    <div class="relative z-10">
-        <header
-            class="flex justify-between items-center px-8 py-6 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md border-b border-green-400 border-opacity-30">
-            <div class="flex items-center">
-                <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                        stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                    <path d="M12 6V12L16 14" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                <h1 class="text-2xl font-bold title-font tracking-wider glow">ADVANCED RECON SUITE</h1>
-            </div>
-            <div class="hidden md:flex space-x-6">
-                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Dashboard</a>
-                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Documentation</a>
-                <a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">About</a>
-            </div>
-        </header>
+	<div class="relative z-10">
+		<header
+			class="flex justify-between items-center px-8 py-6 bg-black bg-opacity-50 backdrop-filter backdrop-blur-md border-b border-green-400 border-opacity-30">
+			<div class="flex items-center">
+				<svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+						stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M12 6V12L16 14" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
+						stroke-linejoin="round" />
+				</svg>
+				<h1 class="text-2xl font-bold title-font tracking-wider glow">ADVANCED RECON SUITE</h1>
+			</div>
+			<div class="hidden md:flex space-x-6">
+				<a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Dashboard</a>
+				<a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">Documentation</a>
+				<a href="#" class="text-gray-300 hover:text-green-400 transition-colors duration-300">About</a>
+			</div>
+		</header>
 
-        <main class="container mx-auto px-6 py-10">
-            <div class="mb-16">
-                <h2 class="text-4xl font-bold title-font mb-4 typewriter">Select Reconnaissance Tool</h2>
-                <p class="text-gray-400 max-w-2xl">Discover vulnerabilities, gather intelligence, and secure your
-                    digital assets with our advanced reconnaissance toolkit.</p>
-            </div>
+		<main class="container mx-auto px-6 py-10">
+			<div class="mb-16">
+				<h2 class="text-4xl font-bold title-font mb-4 typewriter">Select Reconnaissance Tool</h2>
+				<p class="text-gray-400 max-w-2xl">Discover vulnerabilities, gather intelligence, and secure your
+					digital assets with our advanced reconnaissance toolkit.</p>
+			</div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div
-                    class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1v12z" stroke="#00ff9d"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M4 22v-7" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                        <h3 class="text-xl font-bold title-font">Port Scanner</h3>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Scan for open ports and identify potential entry points.</p>
-                    <div class="flex justify-end">
-                        <span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
-                            Soon</span>
-                    </div>
-                </div>
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				<div
+					class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
+					<div class="flex items-center mb-4">
+						<svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1v12z" stroke="#00ff9d"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M4 22v-7" stroke="#00ff9d" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" />
+						</svg>
+						<h3 class="text-xl font-bold title-font">Port Scanner</h3>
+					</div>
+					<p class="text-gray-400 text-sm mb-4">Scan for open ports and identify potential entry points.</p>
+					<div class="flex justify-end">
+						<span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
+							Soon</span>
+					</div>
+				</div>
 
-                <a href="{{ url_for('vuln_scanner.input') }}"
-                    class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#00ff9d" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3 class="text-xl font-bold title-font">Vulnerability Scanner</h3>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Identify security weaknesses and potential exploits.</p>
-                    <div class="flex justify-end">
-                        <span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Active</span>
-                    </div>
-                </a>
+				<a href="{{ url_for('vuln_scanner.input') }}"
+					class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
+					<div class="flex items-center mb-4">
+						<svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#00ff9d" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3 class="text-xl font-bold title-font">Vulnerability Scanner</h3>
+					</div>
+					<p class="text-gray-400 text-sm mb-4">Identify security weaknesses and potential exploits.</p>
+					<div class="flex justify-end">
+						<span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Active</span>
+					</div>
+				</a>
 
-                <div
-                    class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#00ff9d" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3 class="text-xl font-bold title-font">Subdomain Enumerator</h3>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Discover all subdomains associated with a target domain.</p>
-                    <div class="flex justify-end">
-                        <span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
-                            Soon</span>
-                    </div>
-                </div>
+				<a href="{{ url_for('subdom_enumerator.input') }}"
+					class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
+					<div class="flex items-center mb-4">
+						<svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" stroke="#00ff9d" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3 class="text-xl font-bold title-font">Subdomain Enumerator</h3>
+					</div>
+					<p class="text-gray-400 text-sm mb-4">Discover all subdomains associated with a target domain.</p>
+					<div class="flex justify-end">
+						<span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
+							Soon</span>
+					</div>
+				</a>
 
-                <a href="{{ url_for('subdir_enumerator.input') }}"
-                    class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#00ff9d" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#00ff9d"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3 class="text-xl font-bold title-font">Subdirectory Enumerator</h3>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Find hidden directories and paths within a target website.</p>
-                    <div class="flex justify-end">
-                        <span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
-                            Soon</span>
-                    </div>
-                </a>
+				<a href="{{ url_for('subdir_enumerator.input') }}"
+					class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
+					<div class="flex items-center mb-4">
+						<svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="#00ff9d" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="#00ff9d"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3 class="text-xl font-bold title-font">Subdirectory Enumerator</h3>
+					</div>
+					<p class="text-gray-400 text-sm mb-4">Find hidden directories and paths within a target website.</p>
+					<div class="flex justify-end">
+						<span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Coming
+							Soon</span>
+					</div>
+				</a>
 
-                <a href="{{ url_for('osint_scrapper.input') }}"
-                    class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
-                    <div class="flex items-center mb-4">
-                        <svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="#00ff9d"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="#00ff9d"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <h3 class="text-xl font-bold title-font">OSINT Scrapper</h3>
-                    </div>
-                    <p class="text-gray-400 text-sm mb-4">Gather open-source intelligence from various public sources.
-                    </p>
-                    <div class="flex justify-end">
-                        <span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Active</span>
-                    </div>
-                </a>
-            </div>
-        </main>
+				<a href="{{ url_for('osint_scrapper.input') }}"
+					class="menu-item bg-gray-900 bg-opacity-70 rounded-lg border border-green-500 border-opacity-30 p-6 hover:border-opacity-100 transition-all duration-500 transform hover:scale-105">
+					<div class="flex items-center mb-4">
+						<svg class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="#00ff9d"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+							<path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="#00ff9d"
+								stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+						<h3 class="text-xl font-bold title-font">OSINT Scrapper</h3>
+					</div>
+					<p class="text-gray-400 text-sm mb-4">Gather open-source intelligence from various public sources.
+					</p>
+					<div class="flex justify-end">
+						<span class="text-xs bg-green-900 bg-opacity-50 rounded px-2 py-1 text-green-400">Active</span>
+					</div>
+				</a>
+			</div>
+		</main>
 
-        <footer class="mt-16 py-6 bg-black bg-opacity-60 border-t border-green-400 border-opacity-30 hidden">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <p class="text-gray-400 text-sm">© 2025 Advanced Reconnaissance Suite. All rights reserved.</p>
-                    </div>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy
-                            Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of
-                            Service</a>
-                        <a href="#"
-                            class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+		<footer class="mt-16 py-6 bg-black bg-opacity-60 border-t border-green-400 border-opacity-30 hidden">
+			<div class="container mx-auto px-6">
+				<div class="flex flex-col md:flex-row justify-between items-center">
+					<div class="mb-4 md:mb-0">
+						<p class="text-gray-400 text-sm">© 2025 Advanced Reconnaissance Suite. All rights reserved.</p>
+					</div>
+					<div class="flex space-x-4">
+						<a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Privacy
+							Policy</a>
+						<a href="#" class="text-gray-400 hover:text-green-400 transition-colors duration-300">Terms of
+							Service</a>
+						<a href="#"
+							class="text-gray-400 hover:text-green-400 transition-colors duration-300">Contact</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            particlesJS("particles-js", {
-                particles: {
-                    number: {
-                        value: 80,
-                        density: {
-                            enable: true,
-                            value_area: 800
-                        }
-                    },
-                    color: {
-                        value: "#00ff9d"
-                    },
-                    shape: {
-                        type: "circle",
-                        stroke: {
-                            width: 0,
-                            color: "#000000"
-                        }
-                    },
-                    opacity: {
-                        value: 0.3,
-                        random: false,
-                        anim: {
-                            enable: false,
-                            speed: 1,
-                            opacity_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    size: {
-                        value: 3,
-                        random: true,
-                        anim: {
-                            enable: false,
-                            speed: 40,
-                            size_min: 0.1,
-                            sync: false
-                        }
-                    },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#00ff9d",
-                        opacity: 0.2,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 1.5,
-                        direction: "none",
-                        random: false,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false,
-                        attract: {
-                            enable: false,
-                            rotateX: 600,
-                            rotateY: 1200
-                        }
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: {
-                            enable: true,
-                            mode: "grab"
-                        },
-                        onclick: {
-                            enable: true,
-                            mode: "push"
-                        },
-                        resize: true
-                    },
-                    modes: {
-                        grab: {
-                            distance: 140,
-                            line_linked: {
-                                opacity: 0.5
-                            }
-                        },
-                        push: {
-                            particles_nb: 4
-                        }
-                    }
-                },
-                retina_detect: true
-            });
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			particlesJS("particles-js", {
+				particles: {
+					number: {
+						value: 80,
+						density: {
+							enable: true,
+							value_area: 800
+						}
+					},
+					color: {
+						value: "#00ff9d"
+					},
+					shape: {
+						type: "circle",
+						stroke: {
+							width: 0,
+							color: "#000000"
+						}
+					},
+					opacity: {
+						value: 0.3,
+						random: false,
+						anim: {
+							enable: false,
+							speed: 1,
+							opacity_min: 0.1,
+							sync: false
+						}
+					},
+					size: {
+						value: 3,
+						random: true,
+						anim: {
+							enable: false,
+							speed: 40,
+							size_min: 0.1,
+							sync: false
+						}
+					},
+					line_linked: {
+						enable: true,
+						distance: 150,
+						color: "#00ff9d",
+						opacity: 0.2,
+						width: 1
+					},
+					move: {
+						enable: true,
+						speed: 1.5,
+						direction: "none",
+						random: false,
+						straight: false,
+						out_mode: "out",
+						bounce: false,
+						attract: {
+							enable: false,
+							rotateX: 600,
+							rotateY: 1200
+						}
+					}
+				},
+				interactivity: {
+					detect_on: "canvas",
+					events: {
+						onhover: {
+							enable: true,
+							mode: "grab"
+						},
+						onclick: {
+							enable: true,
+							mode: "push"
+						},
+						resize: true
+					},
+					modes: {
+						grab: {
+							distance: 140,
+							line_linked: {
+								opacity: 0.5
+							}
+						},
+						push: {
+							particles_nb: 4
+						}
+					}
+				},
+				retina_detect: true
+			});
 
-            // Add terminal typing effect
-            const typeElements = document.querySelectorAll('.typewriter');
-            if (typeElements.length) {
-                typeElements.forEach(element => {
-                    const text = element.textContent;
-                    element.textContent = '';
-                    let i = 0;
-                    const interval = setInterval(() => {
-                        if (i < text.length) {
-                            element.textContent += text.charAt(i);
-                            i++;
-                        } else {
-                            clearInterval(interval);
-                        }
-                    }, 50);
-                });
-            }
-        });
-    </script>
+			// Add terminal typing effect
+			const typeElements = document.querySelectorAll('.typewriter');
+			if (typeElements.length) {
+				typeElements.forEach(element => {
+					const text = element.textContent;
+					element.textContent = '';
+					let i = 0;
+					const interval = setInterval(() => {
+						if (i < text.length) {
+							element.textContent += text.charAt(i);
+							i++;
+						} else {
+							clearInterval(interval);
+						}
+					}, 50);
+				});
+			}
+		});
+	</script>
 </body>
 
 </html>
