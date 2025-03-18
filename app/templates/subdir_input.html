@@ -39,7 +39,7 @@
             outline: none;
         }
 
-        .checkbox-container {
+        .radio-container {
             position: relative;
             display: flex;
             align-items: center;
@@ -47,11 +47,11 @@
             transition: all 0.3s ease;
         }
 
-        .checkbox-container:hover {
+        .radio-container:hover {
             transform: translateX(5px);
         }
 
-        input[type="checkbox"] {
+        input[type="radio"] {
             position: absolute;
             opacity: 0;
             cursor: pointer;
@@ -59,13 +59,13 @@
             width: 0;
         }
 
-        .checkmark {
+        .radio-mark {
             position: relative;
             height: 20px;
             width: 20px;
             background-color: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(0, 255, 157, 0.3);
-            border-radius: 3px;
+            border-radius: 50%;
             margin-right: 10px;
             display: flex;
             align-items: center;
@@ -73,23 +73,22 @@
             transition: all 0.2s ease;
         }
 
-        input[type="checkbox"]:checked~.checkmark {
+        input[type="radio"]:checked~.radio-mark {
             background-color: rgba(0, 255, 157, 0.2);
             border-color: #00ff9d;
         }
 
-        .checkmark:after {
+        .radio-mark:after {
             content: "";
             position: absolute;
             display: none;
-            width: 5px;
+            width: 10px;
             height: 10px;
-            border: solid #00ff9d;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
+            border-radius: 50%;
+            background: #00ff9d;
         }
 
-        input[type="checkbox"]:checked~.checkmark:after {
+        input[type="radio"]:checked~.radio-mark:after {
             display: block;
         }
 
@@ -263,40 +262,6 @@
             }
         }
 
-        .file-upload {
-            transition: all 0.3s ease;
-        }
-
-        .file-upload:hover .file-upload-label {
-            border-color: #00ff9d;
-            transform: translateY(-2px);
-        }
-
-        .file-upload-input {
-            position: absolute;
-            margin: 0;
-            padding: 0;
-            width: 0;
-            height: 0;
-            outline: none;
-            opacity: 0;
-            cursor: pointer;
-        }
-
-        .file-upload-label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px dashed rgba(0, 255, 157, 0.5);
-            border-radius: 0.375rem;
-            font-weight: 600;
-            color: #00ff9d;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
         .scan-progress {
             height: 4px;
             background: linear-gradient(90deg, #00ff9d, transparent);
@@ -312,6 +277,14 @@
             100% {
                 background-position: -200% 0;
             }
+        }
+
+        .wordlist-size {
+            transition: all 0.3s ease;
+        }
+
+        .wordlist-size:hover {
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -357,8 +330,8 @@
 
             <div
                 class="form-card bg-gray-900 bg-opacity-80 rounded-lg border border-green-500 border-opacity-30 p-8 backdrop-filter backdrop-blur-sm max-w-3xl mx-auto">
-                <p class="text-gray-400 mb-8">Discover hidden directories and paths within target websites. Use custom
-                    wordlists or our default scanning patterns to systematically identify accessible resources.</p>
+                <p class="text-gray-400 mb-8">Discover hidden directories and paths within target websites. Select your
+                    wordlist size to control the scope and depth of the scan.</p>
 
                 <form action="/subdir_enumerator/input" method="POST" class="space-y-6">
                     <div class="space-y-4">
@@ -373,154 +346,58 @@
                                         stroke-linejoin="round" />
                                 </svg>
                             </div>
-                            <input type="text" name="domain_name"
+                            <input type="text" name="target_url"
                                 class="pl-10 w-full py-3 px-4 rounded-md focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                                 placeholder="https://example.com" required>
                         </div>
                     </div>
 
                     <div class="space-y-4">
-                        <label class="block text-xl section-title">Scan Options</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="recursive" name="recursive" value="true">
-                                <span class="checkmark"></span>
-                                <label for="recursive">
-                                    <span class="option-icon">🔄</span>Recursive Scanning
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="follow_redirects" name="follow_redirects" value="true">
-                                <span class="checkmark"></span>
-                                <label for="follow_redirects">
-                                    <span class="option-icon">↪️</span>Follow Redirects
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="include_status" name="include_status" value="true">
-                                <span class="checkmark"></span>
-                                <label for="include_status">
-                                    <span class="option-icon">📊</span>Include Status Codes
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="extended_scan" name="extended_scan" value="true">
-                                <span class="checkmark"></span>
-                                <label for="extended_scan">
-                                    <span class="option-icon">🔍</span>Extended Scan
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="detect_webapp" name="detect_webapp" value="true">
-                                <span class="checkmark"></span>
-                                <label for="detect_webapp">
-                                    <span class="option-icon">🖥️</span>Detect Web Apps
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="stealth_mode" name="stealth_mode" value="true">
-                                <span class="checkmark"></span>
-                                <label for="stealth_mode">
-                                    <span class="option-icon">🥷</span>Stealth Mode
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <label class="block text-xl section-title">Advanced Configuration</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                            <div>
-                                <label for="threads" class="block text-sm text-gray-400 mb-1">Threads</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </div>
-                                    <input type="number" name="threads" id="threads" min="1" max="50" value="10"
-                                        class="pl-10 w-full py-3 px-4 rounded-md focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+                        <label class="block text-xl section-title">Wordlist Size</label>
+                        <div class="grid grid-cols-1 gap-3 mt-4">
+                            <div
+                                class="wordlist-size bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-md p-4 cursor-pointer">
+                                <div class="radio-container">
+                                    <input type="radio" id="small" name="wordlist_size" value="small" checked>
+                                    <span class="radio-mark"></span>
+                                    <label for="small" class="flex items-center cursor-pointer">
+                                        <span class="option-icon">🔍</span>
+                                        <div>
+                                            <div class="font-bold">Small</div>
+                                            <div class="text-xs text-gray-400">~1,000 common paths | Fast scan</div>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
-                            <div>
-                                <label for="timeout" class="block text-sm text-gray-400 mb-1">Timeout (seconds)</label>
-                                <div class="relative">
-                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                        <svg class="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                                            <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" />
-                                        </svg>
-                                    </div>
-                                    <input type="number" name="timeout" id="timeout" min="1" max="60" value="5"
-                                        class="pl-10 w-full py-3 px-4 rounded-md focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">
+
+                            <div
+                                class="wordlist-size bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-md p-4 cursor-pointer">
+                                <div class="radio-container">
+                                    <input type="radio" id="medium" name="wordlist_size" value="medium">
+                                    <span class="radio-mark"></span>
+                                    <label for="medium" class="flex items-center cursor-pointer">
+                                        <span class="option-icon">🔬</span>
+                                        <div>
+                                            <div class="font-bold">Medium</div>
+                                            <div class="text-xs text-gray-400">~10,000 paths | Balanced coverage</div>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="space-y-4">
-                        <label class="block text-xl section-title">Custom Wordlist</label>
-                        <div class="mt-4">
-                            <div class="file-upload relative">
-                                <input type="file" name="wordlist" id="wordlist" class="file-upload-input">
-                                <label for="wordlist" class="file-upload-label w-full">
-                                    <svg class="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"
-                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                        <path d="M14 2v6h6M12 18v-6M9 15h6" stroke="currentColor" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
-                                    Upload Wordlist File (Optional)
-                                </label>
-                            </div>
-                            <p class="text-xs text-gray-400 mt-2">Leave empty to use our default dictionary</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <label class="block text-xl section-title">Scan Patterns</label>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="common_dirs" name="pattern" value="common_dirs" checked>
-                                <span class="checkmark"></span>
-                                <label for="common_dirs">
-                                    <span class="option-icon">📁</span>Common Directories
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="backup_files" name="pattern" value="backup_files">
-                                <span class="checkmark"></span>
-                                <label for="backup_files">
-                                    <span class="option-icon">💾</span>Backup Files
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="config_files" name="pattern" value="config_files">
-                                <span class="checkmark"></span>
-                                <label for="config_files">
-                                    <span class="option-icon">⚙️</span>Configuration Files
-                                </label>
-                            </div>
-
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="admin_panels" name="pattern" value="admin_panels">
-                                <span class="checkmark"></span>
-                                <label for="admin_panels">
-                                    <span class="option-icon">👑</span>Admin Panels
-                                </label>
+                            <div
+                                class="wordlist-size bg-black bg-opacity-50 border border-green-500 border-opacity-30 rounded-md p-4 cursor-pointer">
+                                <div class="radio-container">
+                                    <input type="radio" id="large" name="wordlist_size" value="large">
+                                    <span class="radio-mark"></span>
+                                    <label for="large" class="flex items-center cursor-pointer">
+                                        <span class="option-icon">🔮</span>
+                                        <div>
+                                            <div class="font-bold">Large</div>
+                                            <div class="text-xs text-gray-400">~50,000 paths | Comprehensive scan</div>
+                                        </div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -542,17 +419,6 @@
                     <div class="flex justify-center mt-8">
                         <input type="submit" name="Submit" value="START ENUMERATION"
                             class="scan-button bg-black bg-opacity-70 hover:bg-opacity-90 text-green-400 font-bold py-3 px-8 rounded-md border border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20">
-                            <!-- <div class="flex items-center">
-                                <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                </svg>
-                                START ENUMERATION
-                            </div> -->
-                        </input>
                     </div>
                 </form>
             </div>
@@ -573,16 +439,15 @@
                         </li>
                         <li class="flex items-start">
                             <span class="text-green-400 mr-2">2.</span>
-                            <span>Select scan options and patterns to customize your reconnaissance</span>
+                            <span>Choose your wordlist size based on your scan requirements</span>
                         </li>
                         <li class="flex items-start">
                             <span class="text-green-400 mr-2">3.</span>
-                            <span>Use default wordlists or upload custom dictionaries for targeted scanning</span>
+                            <span>Smaller wordlists are faster but may miss directories</span>
                         </li>
                         <li class="flex items-start">
                             <span class="text-green-400 mr-2">4.</span>
-                            <span>Analyze discovered directories and files to identify potential security
-                                vulnerabilities</span>
+                            <span>Larger wordlists provide more thorough scanning but take longer to complete</span>
                         </li>
                     </ul>
                     <div class="mt-4 w-full h-1 scan-progress"></div>
@@ -700,9 +565,9 @@
                 retina_detect: true
             });
 
-            // Add animation for checkbox items
-            const checkboxContainers = document.querySelectorAll('.checkbox-container');
-            checkboxContainers.forEach((container, index) => {
+            // Add animation for radio items
+            const radioContainers = document.querySelectorAll('.radio-container');
+            radioContainers.forEach((container, index) => {
                 container.style.opacity = '0';
                 container.style.transform = 'translateY(20px)';
 
@@ -711,6 +576,14 @@
                     container.style.opacity = '1';
                     container.style.transform = 'translateY(0)';
                 }, 100 + (index * 100));
+            });
+
+            // Add click handler for wordlist size containers
+            document.querySelectorAll('.wordlist-size').forEach(container => {
+                container.addEventListener('click', function () {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                });
             });
 
             // Add typewriter effect for section titles
