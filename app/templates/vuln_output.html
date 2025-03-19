@@ -11,6 +11,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
 
+        @media print {
+            .noPrint {
+                display: none;
+            }
+
+            * {
+                color: black;
+            }
+
+            .result-card::before {
+                display: none;
+            }
+        }
+
         body {
             font-family: 'Share Tech Mono', monospace;
             background-color: #0a0e17;
@@ -206,8 +220,8 @@
     <div id="particles-js"></div>
     <div class="scan-line"></div>
 
-    <div class="circle-pattern" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
-    <div class="circle-pattern" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+    <div class="circle-pattern noPrint" style="width: 500px; height: 500px; top: -250px; right: -250px;"></div>
+    <div class="circle-pattern noPrint" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
 
     <div class="relative z-10">
         <header
@@ -468,7 +482,7 @@
                         BACK TO SCANNER
                     </a>
 
-                    <button
+                    <button onclick="window.print()"
                         class="bg-black bg-opacity-70 hover:bg-opacity-90 text-green-400 font-bold py-2 px-6 rounded-md border border-green-500 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20 flex items-center">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
