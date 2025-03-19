@@ -11,6 +11,20 @@
         @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
 
+        @media print {
+            .noPrint {
+                display: none;
+            }
+
+            * {
+                color: black;
+            }
+
+            .result-card::before {
+                display: none;
+            }
+        }
+
         body {
             font-family: 'Share Tech Mono', monospace;
             background-color: #0a0e17;
@@ -284,8 +298,8 @@
                     <div id="results-container" class="space-y-6">
                         <!-- OSINT results will be inserted here -->
                         <!-- {{ osint_result }} -->
-						<!-- {{ option_list }} -->
-						<pre>
+                        <!-- {{ option_list }} -->
+                        <pre>
 	Domain : {{ osint_result["Domain"] }}<br>
 	{% for option in option_list %}
 	{{ option }} : {{ osint_result[option] }}<br>
