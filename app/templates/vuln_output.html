@@ -264,7 +264,7 @@
                                 d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
                                 stroke="#00ff9d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <h2 class="text-xl font-bold title-font">TARGET: <span class="text-white">example.com</span>
+                        <h2 class="text-xl font-bold title-font">TARGET: <span class="text-white">{{ vuln_result["Domain"] }}</span>
                         </h2>
                     </div>
                     <p class="text-gray-400 mt-2 text-sm">Scan completed on {{ current_date }} | <span
@@ -272,9 +272,20 @@
                 </div>
 
                 <div class="space-y-6">
-                    <div class="vuln-results">
-                        <!-- {{ vuln_result }} -->
-                        <div class="vuln-summary mb-8">
+                    <div class="vuln-results"> 
+						<pre>
+	{% for option in option_list %}
+{{ option }} : 
+		<div style="max-width: auto; overflow: auto; white-space: nowrap;"><pre>
+			"Risk Level" : {{ vuln_result[option]["Risk Level"] }}
+		</pre></div>
+		<div style="max-width: auto; overflow: auto; white-space: nowrap;">	<pre>
+			"Info" : {{ vuln_result[option]["Info"] }}
+		</pre></div><br>
+
+	{% endfor %}
+						</pre>
+                        <!-- <div class="vuln-summary mb-8">
                             <h3 class="text-xl font-semibold section-title mb-4">VULNERABILITY SUMMARY</h3>
                             <div class="grid grid-cols-3 gap-4 text-center">
                                 <div
@@ -293,9 +304,9 @@
                                     <p class="text-sm mt-1">Low</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="vuln-details">
+                        <!-- <div class="vuln-details">
                             <h3 class="text-xl font-semibold section-title mb-4">VULNERABILITY DETAILS</h3>
 
                             <div class="mb-6">
@@ -311,7 +322,6 @@
                                 </h4>
 
                                 <div class="space-y-4">
-                                    <!-- Critical Vulnerabilities template -->
                                     <div
                                         class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
                                         <h5 class="font-bold text-red-400">SQL Injection Vulnerability</h5>
@@ -335,9 +345,7 @@
                                                 statements or parameterized queries.</p>
                                         </div>
                                     </div>
-                                    <!-- Critical Vulnerabilities template end -->
 
-                                    <!-- Critical Vulnerabilities template 2 -->
                                     <div
                                         class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
                                         <h5 class="font-bold text-red-400">Cross-Site Scripting (XSS)</h5>
@@ -363,7 +371,6 @@
                                     </div>
 
 
-                                    <!-- Critical Vulnerabilities template 3 -->
                                     <div
                                         class="bg-black bg-opacity-50 p-4 rounded-lg border border-red-500 border-opacity-30">
                                         <h5 class="font-bold text-red-400">Insecure Direct Object Reference</h5>
@@ -387,7 +394,6 @@
                                                 controls and user authentication checks.</p>
                                         </div>
                                     </div>
-                                    <!-- Critical Vulnerabilities templates END -->
                                 </div>
                             </div>
 
@@ -404,7 +410,6 @@
                                 </h4>
 
                                 <div class="space-y-4">
-                                    <!-- Medium Vulnerabilities template -->
                                     <div
                                         class="bg-black bg-opacity-50 p-4 rounded-lg border border-yellow-500 border-opacity-30">
                                         <h5 class="font-bold text-yellow-400">Missing HTTP Security Headers</h5>
@@ -444,7 +449,6 @@
                                 </h4>
 
                                 <div class="space-y-4">
-                                    <!-- Low Vulnerabilities Template -->
                                     <div
                                         class="bg-black bg-opacity-50 p-4 rounded-lg border border-green-500 border-opacity-30">
                                         <h5 class="font-bold text-green-400">Cookie Without Secure Flag</h5>
@@ -469,8 +473,7 @@
 
                                 </div>
                             </div>
-                        </div>
-                        <!-- {{ vuln_result End}} -->
+                        </div> -->
                     </div>
                 </div>
 
@@ -779,16 +782,3 @@
 
 </html>
 
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-</head>
-<body>
-	<h1>VULNERABILITY SCANNER</h1>
-	{{ vuln_result }}
-</body>
-</html> -->
