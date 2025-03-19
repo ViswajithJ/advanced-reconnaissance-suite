@@ -34,4 +34,5 @@ def input():
 @vuln_scanner.route("/output", methods=["GET"])
 def output():
     vuln_result = session["vuln_result"]
-    return render_template("vuln_output.html", vuln_result=vuln_result)
+    option_list = session["vuln_option_list"]
+    return render_template("vuln_output.html", vuln_result=vuln_result, option_list=option_list)
