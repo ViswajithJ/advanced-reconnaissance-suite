@@ -300,9 +300,9 @@
                         <!-- {{ osint_result }} -->
                         <!-- {{ option_list }} -->
                         <pre>
-	Domain : {{ osint_result["Domain"] }}<br>
+	<b>Domain</b> : {{ osint_result["Domain"] }}<br>
 	{% for option in option_list %}
-	{{ option }} : {{ osint_result[option] }}<br>
+	<b>{{ option }}</b> : {{ osint_result[option] }}<br>
 	{% endfor %}
 						</pre>
                     </div>
