@@ -18,7 +18,7 @@ async def load_wordlist(wordlist_size):
 
 async def check_subdomain(session, domain, subdomain):
     try:
-        url = f"http://{subdomain}.{domain}"
+        url = f"https://{subdomain}.{domain}"
         async with session.head(url, allow_redirects=False, timeout=5) as response:
             return response.status < 400
     except (asyncio.TimeoutError, aiohttp.ClientError):
