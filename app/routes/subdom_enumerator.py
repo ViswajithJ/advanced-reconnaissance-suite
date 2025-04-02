@@ -6,6 +6,7 @@ from flask import (
     redirect,
     url_for,
 )
+import time
 
 from app.logic.subdom_enumerator.subdom_enumerator import subdom_enum
 
@@ -26,9 +27,14 @@ def input():
             wordlist_size = request.form.get("wordlist_size").strip().lower()
 
             # change to subdom function, and its parameters
+            start_time = time.time()
             subdom_result = subdom_enum(domain_name, wordlist_size)
+            end_time = time.time()
+            scan_time = end_time - start_time
+            print(round(scan_time))
             session["subdom_result"] = subdom_result
             session["domain_name"] = domain_name
+            session["subdom_scan_time"] = round(scan_time)
             print(subdom_result)
             return redirect(url_for("subdom_enumerator.output"))
     return render_template("subdom_input.html")
@@ -38,6 +44,10 @@ def input():
 def output():
     subdom_result = session["subdom_result"]
     domain_name = session["domain_name"]
+    scan_time = session["subdom_scan_time"]
     return render_template(
-        "subdom_output.html", subdom_result=subdom_result, domain_name=domain_name
+        "subdom_output.html",
+        subdom_result=subdom_result,
+        domain_name=domain_name,
+        scan_time=scan_time,
     )

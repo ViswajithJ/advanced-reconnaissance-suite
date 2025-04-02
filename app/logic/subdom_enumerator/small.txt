@@ -1,4 +1,10 @@
+alumni
+hpc
 www
+ca
+cse
+ece
+ce
 mail
 ftp
 localhost
@@ -285,7 +291,6 @@ mirror
 ca
 sso
 tickets
-alumni
 sitebuilder
 www.admin
 auth
@@ -4512,7 +4517,6 @@ consulting
 owl
 newsroom
 us.m
-hpc
 ss1
 dist
 valentine
