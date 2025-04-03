@@ -21,31 +21,12 @@ async def load_wordlist(wordlist_size):
 
 
 async def check_subdirectory(session, domain, subdirectory):
-    # 	try:
-    # 		async with session.head(f"https://{domain}/{subdirectory}", timeout=2) as response:
-    # 			return response.status < 400
-    # 	except (asyncio.TimeoutError, aiohttp.ClientError):
-    # 		return False
-    # # async def check_subdirectory(session, domain, subdirectory):
-    # #     headers = {"User-Agent": "Mozilla/5.0"}  # Adding a user-agent header
-    # #     url = f"http://{domain}/{subdirectory}"
-    # #     try:
-    # #         async with session.get(url, headers=headers, allow_redirects=False, timeout=5) as response:
-    # #             if response.status < 400 :  # Only count actual existing subdirectories
-    # #                 return True
-    # #         return False
-    # #         return False
-    # async def check_subdirectory(session, domain, subdirectory):
+  
     try:
         url = f"https://{domain}/{subdirectory}"
         async with session.get(url, allow_redirects=True, timeout=5) as response:
             status = response.status
-            content = await response.text(errors="ignore")  # Ignores decoding errors
-            # print(
-            #     f"Checked {url} - Status: {status}, Content-Length: {len(content)}"
-            # )  # Debugging output
-
-            # Reject real 404s
+            content = await response.text(errors="ignore")  
             if status == 404:
                 return False
 
@@ -137,8 +118,6 @@ async def run_subdirectory_scan(
     output_file = "output.json"
 
     if not subdirectories:
-        # with open(output_file, "w") as file:
-        # 	json.dump([], file, indent=4)
         return []
 
     if show_recursive:
@@ -152,37 +131,18 @@ async def run_subdirectory_scan(
             else:
                 recursive_results.append(sub)
 
-        # with open(output_file, "w") as file:
-        # 	json.dump(recursive_results, file, indent=4)
         return recursive_results
     else:
-        # with open(output_file, "w") as file:
-        # 	json.dump(subdirectories, file, indent=4)
         return subdirectories
 
 
 async def main(domain, wordlist_size):
-    # domain = input("Enter domain (e.g., example.com): ").strip()
-    # wordlist_size = input("Choose difficulty level (easy, medium, difficult): ").strip().lower()
-
-    # option = input("Enter option (1: Subdirectories only, 2: Recursive subdirectories with depth): ").strip()
-
-    # if option == "2":
-    # 	depth = input("Enter recursive depth (default is 1): ").strip()
-    # 	max_depth = int(depth) if depth.isdigit() else 1
-    # 	await run_subdirectory_scan(domain, wordlist_size, show_recursive=True, max_depth=max_depth)
-    # else:
+   
     result = await run_subdirectory_scan(domain, wordlist_size, show_recursive=False)
     return result
 
 
 def subdir_enum(domain, wordlist_size):
-    # print(domain, wordlist_size)
 
-    # start_time = time.time()
     result = asyncio.run(main(domain, wordlist_size))
-    # end_time = time.time()
-    # scan_time = end_time - start_time
-    # print(round(scan_time))
-    # print(result)
     return result

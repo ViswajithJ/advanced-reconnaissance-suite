@@ -32,64 +32,10 @@ def get_location(domain):
 		"Longitude": response.get("longitude"),
 	}
 	return location_dict
-	# print("\nServer Location Details\n")
-	# print(
-	#     "ip : ",
-	#     ip,
-	#     "\ncity : ",
-	#     response.get("city"),
-	#     "\nregion : ",
-	#     response.get("region"),
-	#     "\ncountry : ",
-	#     response.get("country_name"),
-	#     "\npin : ",
-	#     response.get("postal"),
-	#     "\nlatitude : ",
-	#     response.get("latitude"),
-	#     "\nlongitude : ",
-	#     response.get("longitude"),
-	# ) use just these data from the returned json, at frontend
-
 
 def get_whois(domain):
 
 	whois_data = whois.whois(domain)
-	# whois_info = {
-	#     "domain_name": whois_data.domain_name,
-	#     "registrar": whois_data.registrar,
-	#     "creation_date": whois_data.creation_date,
-	#     "expiration_date": whois_data.expiration_date,
-	#     "name_servers": whois_data.name_servers,
-	#     "emails": whois_data.emails,
-	#     "address": whois_data.address
-	#     + " "
-	#     + whois_data.city
-	#     + " "
-	#     + whois_data.country,
-	# }
-	# print("\nDomain Details\n")
-
-	# print(
-	#     "domain_name : ",
-	#     whois_data.domain_name,
-	#     "\nregistrar : ",
-	#     whois_data.registrar,
-	#     "\ncreation_date : ",
-	#     whois_data.creation_date,
-	#     "\nexpiration_date : ",
-	#     whois_data.expiration_date,
-	#     "\nname_servers : ",
-	#     whois_data.name_servers,
-	#     "\nemails : ",
-	#     whois_data.emails,
-	#     "\naddress : ",
-	#     whois_data.address,
-	#     ", ",
-	#     whois_data.city,
-	#     ", ",
-	#     whois_data.country,
-	# ) use just these data from the returned json, at frontend
-	# print(whois_data.creation_date)
 	whois_dict = {
 		"Domain Registrar": whois_data.registrar,
 		"Creation Date": whois_data.creation_date[0].strftime("%Y-%m-%d %H:%M:%S %Z") if isinstance(whois_data.creation_date, list) else whois_data.creation_date.strftime("%Y-%m-%d %H:%M:%S %Z"),
@@ -117,18 +63,11 @@ def get_cookies(domain):
 def get_headers(domain):
 
 	response = requests.get(f"https://{domain}/")
-	# print(response)
-	# print("\nBasic Http Headers\n")
-	# for i in list(response.headers):
-	# 	print(i, "\t\t: ", response.headers[i])
 	headers = response.headers
 	headers_dict = {}
 	for i in headers:
 		headers_dict[i] = headers[i]
 	return headers_dict
-
-
-# error here
 
 
 def get_ssl_certificate_info(host, port=443):
@@ -137,13 +76,7 @@ def get_ssl_certificate_info(host, port=443):
 		with socket.create_connection((host, port)) as sock:
 			with context.wrap_socket(sock, server_hostname=host) as ssock:
 				cert = ssock.getpeercert()
-				# print(
-				# 	f"""
-				# 	"Issuer": {cert.get("issuer")},
-				# 	"Subject": {cert.get("subject")},
-				# 	"Expiry Date": {cert.get("notAfter")},
-				# """
-				# )
+
 	except Exception as e:
 		print(
 			"""

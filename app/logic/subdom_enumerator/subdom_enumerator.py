@@ -74,8 +74,6 @@ async def run_subdomain_scan(domain, wordlist_size, show_recursive=False, max_de
     output_file = "output.json"
     
     if not subdomains:
-        # with open(output_file, "w") as file:
-        #     json.dump([], file, indent=4)
         return []
     
     if show_recursive:
@@ -86,32 +84,10 @@ async def run_subdomain_scan(domain, wordlist_size, show_recursive=False, max_de
                 recursive_results.append({sub: recursive_subs})
             else:
                 recursive_results.append(sub)
-    
-        # with open(output_file, "w") as file:
-        #     json.dump(recursive_results, file, indent=4)
         return recursive_results
     else:
-        # with open(output_file, "w") as file:
-        #     json.dump(subdomains, file, indent=4)
         return subdomains
 
-# async def main():
-#     domain = input("Enter domain (e.g., example.com): ").strip()
-#     wordlist_size = input("Choose difficulty level (easy, medium, difficult): ").strip().lower()
-    
-#     option = input("Enter option (1: subdomains only, 2: Recursive subdomains with depth): ").strip()
-    
-#     if option == "2":
-#         depth = input("Enter recursive depth (default is 1): ").strip()
-#         max_depth = int(depth) if depth.isdigit() else 1
-#         await run_subdomain_scan(domain, wordlist_size, show_recursive=True, max_depth=max_depth)
-#     else:
-#         await run_subdomain_scan(domain, wordlist_size, show_recursive=False)
-
-# if __name__ == "__main__":
-#     asyncio.run(main())
-
-##################################
 
 
 async def main(domain, wordlist_size):

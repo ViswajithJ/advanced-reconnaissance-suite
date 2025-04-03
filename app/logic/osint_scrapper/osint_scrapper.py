@@ -6,7 +6,6 @@ options_dict = {
     "Server Location": get_location,
     "Domain Registration Info": get_whois,
     "Cookies": get_cookies,
-    # "HTTP Headers": get_headers,
     "SSL Certificate Info": get_ssl_certificate_info,
     "Firewall Status": get_firewall_info,
 }
